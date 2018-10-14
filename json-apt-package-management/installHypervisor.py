@@ -1,28 +1,26 @@
-# sudo apt-get install rolldice
-#  sudo apt-get remove rolldice
+# Python Script to install packages from json index table
 
+# Import Libraries
 import json
-
 import subprocess
 
-#subprocess.Popen( 'sudo apt-get -y install rolldice',  shell=True,  stdin=subprocess.PIPE ).communicate()
 
-#subprocess.call("(sudo apt-get install rolldice)", shell=True)
-
+# Load package json index
 installerVars = json.load(open('hypervisor.json'))
 
+# Add "dependencies" package list(s) to (un)install command
 for dependency in installerVars["dependencies"]:
 	installString = 'sudo apt-get -y install ' +  dependency
 	uninstallString = 'sudo apt-get -y remove ' +  dependency
 	
-	#package
+# Print dependencies / install command to stdout & Execute (un)install command
 	print dependency
 	print installString
-	#subprocess.Popen( uninstallString,  shell=True,  stdin=subprocess.PIPE ).communicate()
 	subprocess.Popen( installString,  shell=True,  stdin=subprocess.PIPE ).communicate()
 	
-	#version
-	#print installerVars["dependencies"][dependency]
 
-
-
+## Discarded
+#print installerVars["dependencies"][dependency]
+#subprocess.call("(sudo apt-get install rolldice)", shell=True)
+#subprocess.Popen( 'sudo apt-get -y install rolldice',  shell=True,  stdin=subprocess.PIPE ).communicate()
+#subprocess.Popen( uninstallString,  shell=True,  stdin=subprocess.PIPE ).communicate()
